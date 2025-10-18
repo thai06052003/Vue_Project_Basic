@@ -17,6 +17,11 @@ const router = createRouter({
       component: CreateView,
     },
     {
+      path: '/update/:id',
+      name: 'update',
+      component: CreateView,
+    },
+    {
       path: '/todo/:id',
       name: 'todoDetail',
       component: TodoDetailView,

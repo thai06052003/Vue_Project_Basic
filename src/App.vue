@@ -22,11 +22,12 @@
     </nav>
   </header>
 
-  <RouterView v-slot="{ Component, route }">
+  <!-- <RouterView v-slot="{ Component, route }">
     <KeepAlive>
       <component :is="Component" />
     </KeepAlive>
-  </RouterView>
+  </RouterView> -->
+  <RouterView></RouterView>
 </template>
 
 <style scoped>

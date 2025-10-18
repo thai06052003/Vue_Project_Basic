@@ -1,34 +1,33 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+  import { useTodoStore } from '@/store/TodoStore';
+import { useRoute, useRouter } from 'vue-router';
 
- const router = useRoute()
- const user = ref({
-    email: '',
-    name: ''
- })
+  const store = useTodoStore();
+  const route = useRoute();
+  const router = useRouter();
 
- onMounted(() => {
-    (async () => {
-      const res = await fetch(`https://jsonplaceholder.typicode.com/users/${router.params.id}`);
-      const data = await res.json();
-      user.value = data;
-      console.log(user)
-    })();
-  });
+  const handleDeleteUser = () => {
+    store.handleDeleteUser(route.params.id)
+    router.push('/')
+  }
+
 </script>
 
 <template>
-  <main style="color: #000;padding: 2rem;">
-    <!-- TodoDetail Item {{ router.params.id }} -->
-     <div class="card-item">
-        <div class="">
-            <h2>{{ user?.name }}</h2>
-            <h3>{{ user?.email }}</h3>
-            <h4>{{ user?.username }}</h4>
-            <h5>{{ user?.website }}</h5>
-            <h6>{{ user?.phone }}</h6>
-        </div>
-     </div>
+  <main style="color: #000; padding: 2rem">
+    <div class="card-item">
+      <div class="">
+        <h3>{{ store.detailUser.email }}</h3>
+        <h2>{{ store.detailUser.name }}</h2>
+        <h6>{{ store.detailUser.phone }}</h6>
+      </div>
+    </div>
+
+    <div style="display: flex;">
+      <div class="btn-main" style="margin-top: 1rem; background-color: rgb(231 66 66); min-width: 100px;" @click="handleDeleteUser()">Delete</div>
+    </div>
+    <div style="display: flex;">
+      <div class="btn-main" style="margin-top: 1rem; background-color: rgb(255 148 60); min-width: 100px;" @click="router.push(`/update/${store.detailUser.id}`)">Update</div>
+    </div>
   </main>
 </template>
